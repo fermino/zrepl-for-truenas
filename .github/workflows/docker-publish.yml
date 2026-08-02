@@ -15,6 +15,7 @@ jobs:
       output: image
       push: ${{ github.event_name != 'pull_request' }}
       meta-images: ghcr.io/${{ github.repository }}
+      meta-tags: type=raw,value=latest,enable={{is_default_branch}}
     secrets:
       registry-auths: |
         - registry: ghcr.io
