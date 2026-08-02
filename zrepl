@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+APPS="$(midclt call app.query)"
+APPS_ZREPL="$(echo "$APPS" | jq 'map(select(.name == "zrepl"))')"
+
+if [[ "$(echo "$APPS_ZREPL" | jq 'length')" != "1" ]]; then
+    echo "Error: there's more than 1 app with the name 'zrepl'."
+    exit 1
+fi
+
+if [[ "$(echo "$APPS_ZREPL" | jq -r '.[0].state')" != "RUNNING" ]]; then
+    echo "Error: the zrepl app is not running."
+    exit 2
+fi
+
+if [[ "$(echo "$APPS_ZREPL" | jq -r '.[0].active_workloads.containers')" != "1" ]]; then
+    echo "Error: there's more than 1 container running within the zrepl app."
+    exit 3
+fi
+
+CONTAINER_ID="$(echo "$APPS_ZREPL" | jq -r '.[0].active_workloads.container_details[0].id')"
+exec docker exec -it "${CONTAINER_ID}" zrepl "${@:1}"
