@@ -1,9 +1,13 @@
-"build":
+variables:
+  STORAGE_DRIVER: vfs
+  BUILDAH_FORMAT: docker
+
+build:
   stage: build
-  image:
-    name: gcr.io/kaniko-project/executor:v1.23.2-debug
-    entrypoint: [ "" ]
+  image: quay.io/buildah/stable
   tags: ["docker"]
-  script: /kaniko/executor
-    --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
-    --destination "${CI_REGISTRY_IMAGE}:latest"
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+  script:
+    - buildah build -t $CI_REGISTRY_IMAGE:latest .
+    - buildah push $CI_REGISTRY_IMAGE:latest
