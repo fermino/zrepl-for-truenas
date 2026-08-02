@@ -29,7 +29,7 @@ SOURCES_EOF
     apt-get clean
     rm -rf /var/lib/apt/lists/*
 
-    mkdir /var/run/zrepl{,/stdinserver}
+    mkdir -p /var/run/zrepl/stdinserver
     chmod 700 /var/run/zrepl{,/stdinserver}
 
     rm -rf /etc/zrepl/zrepl.yml
