@@ -24,6 +24,7 @@ SOURCES_EOF
     apt-get update
     apt-get install --no-install-recommends --no-install-suggests -y zrepl
 
+    apt-get remove --purge -y ca-certificates curl gnupg
     apt-get autoremove --purge -y
     apt-get clean
     rm -rf /var/lib/apt/lists/*
