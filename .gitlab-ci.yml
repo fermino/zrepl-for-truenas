@@ -4,5 +4,5 @@
     entrypoint: [ "" ]
   tags: ["docker"]
   script: /kaniko/executor
-    --dockerfile "${CI_PROJECT_DIR}/docker/Dockerfile"
+    --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
     --destination "${CI_REGISTRY_IMAGE}:latest"
