@@ -32,8 +32,11 @@ SOURCES_EOF
     mkdir /var/run/zrepl
     chmod 700 /var/run/zrepl
 
-    rm -rf /etc/zrepl
+    rm -rf /etc/zrepl/zrepl.yml
+    mkdir /config
 EOF
 
-VOLUME /etc/zrepl
+COPY zrepl.yml /etc/zrepl/zrepl.yml
+
+VOLUME /config
 ENTRYPOINT ["/usr/bin/zrepl", "daemon"]

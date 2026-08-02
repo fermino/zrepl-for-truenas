@@ -1,0 +1,8 @@
+global:
+  logging:
+    - type: "stdout"
+      level:  "info"
+      format: "human"
+
+include:
+  - /config/

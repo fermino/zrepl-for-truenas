@@ -9,5 +9,5 @@ build:
   before_script:
     - echo "$CI_REGISTRY_PASSWORD" | buildah login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
   script:
-    - buildah build -t $CI_REGISTRY_IMAGE:latest .
+    - buildah build -t $CI_REGISTRY_IMAGE:latest docker
     - buildah push $CI_REGISTRY_IMAGE:latest
