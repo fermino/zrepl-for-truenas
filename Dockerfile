@@ -27,4 +27,12 @@ SOURCES_EOF
     apt-get autoremove --purge -y
     apt-get clean
     rm -rf /var/lib/apt/lists/*
+
+    mkdir /var/run/zrepl
+    chmod 700 /var/run/zrepl
+
+    rm -rf /etc/zrepl
 EOF
+
+VOLUME /etc/zrepl
+ENTRYPOINT ["/usr/bin/zrepl", "daemon"]
