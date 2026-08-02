@@ -1,0 +1,8 @@
+"build":
+  image:
+    name: gcr.io/kaniko-project/executor:v1.23.2-debug
+    entrypoint: [ "" ]
+  tags: ["docker"]
+  script: /kaniko/executor
+    --dockerfile "${CI_PROJECT_DIR}/docker/Dockerfile"
+    --destination "${CI_REGISTRY_IMAGE}:latest"
